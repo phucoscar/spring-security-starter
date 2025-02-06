@@ -53,5 +53,8 @@ public class User extends BaseEntity {
     private int gender;
 
     @Column
+    private String role;
+
+    @Column
     private byte status;
 }

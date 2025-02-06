@@ -12,6 +12,9 @@ spring:
     username: root
     password: sa123456
 
+jwt:
+  secretKey: secretkeyyy
+
 #aws:
 #  s3:
 #    region: ap-northeast-2
