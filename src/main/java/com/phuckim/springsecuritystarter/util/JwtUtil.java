@@ -36,13 +36,15 @@ public class JwtUtil {
                 .compact();
     }
 
-    private static Map<String,Object> buildClaims(User user) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("id", user.getId());
-        claims.put("email", user.getEmail());
-        claims.put("role", user.getRole());
-        return claims;
+    private static Map<String, Object> buildClaims(User user) {
+        return Map.of(
+                "id", user.getId(),
+                "name", user.getName(),
+                "email", user.getEmail(),
+                "role", user.getRole()
+        );
     }
+
 
     private static Claims getClaims(String token) {
         return Jwts.parser()
