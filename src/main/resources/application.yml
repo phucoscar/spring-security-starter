@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: spring-security-starter
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: sa123456
+
+#aws:
+#  s3:
+#    region: ap-northeast-2
+#    bucketName: ${AWS_BUCKET_NAME}
+#    accessKey: ${AWS_ACCESS_KEY}
+#    secretKey: ${AWS_SECRET_KEY}
+#    domain: ${AWS_DOMAIN_NAME}
+
+server:
+  port: 8080
+
+
