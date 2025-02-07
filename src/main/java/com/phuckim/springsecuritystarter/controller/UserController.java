@@ -1,5 +1,6 @@
 package com.phuckim.springsecuritystarter.controller;
 
+import com.phuckim.springsecuritystarter.helper.AuthenticationHelper;
 import com.phuckim.springsecuritystarter.service.UserService;
 import com.phuckim.springsecuritystarter.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -22,14 +23,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/me")
-    public ResponseEntity<?> me(HttpServletRequest request) {
-        String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-        String token = null;
-        if (header != null && header.startsWith("Bearer ")) {
-            token=  header.substring(7);
-        }
-
-        String username = JwtUtil.getUsername(token);
-        return ResponseEntity.ok(username);
+    public ResponseEntity<?> me() {
+        return ResponseEntity.ok(AuthenticationHelper.getCurrentUsername());
     }
 }
