@@ -23,10 +23,9 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class BaseEntity {
+public class BaseEntity {
     @Column(name = "created_by")
     @CreatedBy
     private String createdBy;

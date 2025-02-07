@@ -20,9 +20,7 @@ import java.util.Map;
 @Slf4j
 public class JwtUtil {
 
-
-    @Value("${jwt.secretKey}")
-    private static String SECRET_KEY;
+    private static final String SECRET_KEY = "asbdabsdkjl";
 
     private static final long TOKEN_EXPIRATION =  3600; // 1 hour
 
@@ -37,19 +35,20 @@ public class JwtUtil {
     }
 
     private static Map<String, Object> buildClaims(User user) {
-        return Map.of(
-                "id", user.getId(),
-                "name", user.getName(),
-                "email", user.getEmail(),
-                "role", user.getRole()
-        );
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", user.getId());
+        claims.put("name", user.getName());
+        claims.put("email", user.getEmail());
+        claims.put("role", user.getRole());
+
+        return claims;
     }
 
 
     private static Claims getClaims(String token) {
         return Jwts.parser()
                 .setSigningKey(SECRET_KEY)
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
     }
 
@@ -59,7 +58,7 @@ public class JwtUtil {
 
     public static boolean isValidToken(String token) {
         try {
-            Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJwt(token);
+            Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
             return true;
         }catch (MalformedJwtException ex) {
             log.error("Invalid token");
