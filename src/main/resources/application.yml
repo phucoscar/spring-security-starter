@@ -12,9 +12,6 @@ spring:
     username: root
     password: sa123456
 
-jwt:
-  secretKey: secretkeyyy
-
 #aws:
 #  s3:
 #    region: ap-northeast-2
@@ -25,8 +22,5 @@ jwt:
 
 server:
   port: 8080
-
-  servlet:
-    context-path: /api/v1
 
 

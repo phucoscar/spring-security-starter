@@ -1,6 +1,7 @@
 package com.phuckim.springsecuritystarter.config.security;
 
 import com.phuckim.springsecuritystarter.config.security.filter.JwtRequestFilter;
+import com.phuckim.springsecuritystarter.service.impl.UserDetailServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,8 @@ public class SecurityConfig {
 
     private final JwtRequestFilter jwtRequestFilter;
 
+    private final UserDetailServiceImpl userDetailService;
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -33,13 +36,15 @@ public class SecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/api/v1/login").permitAll()
+                .antMatchers("/api/v1/login")
+                .permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
