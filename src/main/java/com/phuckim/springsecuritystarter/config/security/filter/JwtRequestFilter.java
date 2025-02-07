@@ -27,6 +27,8 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
 
+    private final UserDetailServiceImpl userDetailService;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
@@ -36,8 +38,15 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             String ipAddress = IPAddressUtil.getIp(request);
             String username = JwtUtil.getUsername(token);
 
-            log.info("IP_ADDRESS: {}", ipAddress);
-            log.info("USER: {}", username);
+            log.info("IP_Address: {}", ipAddress);
+            log.info("Username: {}", username);
+
+
+            UserDetails userDetails = userDetailService.loadUserByUsername(username);
+            UsernamePasswordAuthenticationToken authentication =
+                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
         filterChain.doFilter(request, response);

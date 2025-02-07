@@ -22,7 +22,7 @@ public class JwtUtil {
 
     private static final String SECRET_KEY = "asbdabsdkjl";
 
-    private static final long TOKEN_EXPIRATION =  3600; // 1 hour
+    private static final long TOKEN_EXPIRATION =  3600 * 1000; // 1 hour
 
     public static String generateToken(User user) {
         return Jwts.builder()
